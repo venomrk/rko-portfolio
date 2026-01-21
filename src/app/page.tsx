@@ -1,24 +1,27 @@
-"use client";
-
 import { useState, useEffect } from "react";
 import DashboardSidebar from "@/components/DashboardSidebar";
 import DashboardHeader from "@/components/DashboardHeader";
 import TraderProfile from "@/components/TraderProfile";
 import TradeCard from "@/components/TradeCard";
 import StatsPanel from "@/components/StatsPanel";
-import { fetchGitHubRepos, GitHubRepo } from "@/lib/github";
+import { fetchGitHubRepos, fetchGitHubUser, GitHubRepo, GitHubUser } from "@/lib/github";
 
 export default function Home() {
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
+  const [user, setUser] = useState<GitHubUser | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function loadRepos() {
-      const data = await fetchGitHubRepos();
-      setRepos(data);
+    async function loadData() {
+      const [reposData, userData] = await Promise.all([
+        fetchGitHubRepos(),
+        fetchGitHubUser()
+      ]);
+      setRepos(reposData);
+      setUser(userData);
       setLoading(false);
     }
-    loadRepos();
+    loadData();
   }, []);
 
   return (
@@ -31,7 +34,7 @@ export default function Home() {
         <main className="flex-1 flex gap-8 p-10 ml-16 overflow-y-auto">
           {/* Main Feed */}
           <div className="flex-1 max-w-3xl">
-            <TraderProfile />
+            <TraderProfile user={user} />
 
             <div className="mb-6 flex items-center justify-between border-b border-[#1e1e24] pb-2">
               <div className="flex gap-6">
@@ -69,7 +72,7 @@ export default function Home() {
           </div>
 
           {/* Right Sidebar Stats */}
-          <StatsPanel />
+          <StatsPanel repos={repos} />
         </main>
       </div>
     </div>
