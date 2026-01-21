@@ -10,7 +10,7 @@ export default function Cursor3D() {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  const springConfig = { damping: 25, stiffness: 400 };
+  const springConfig = { damping: 20, stiffness: 300 };
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
 
@@ -51,48 +51,55 @@ export default function Cursor3D() {
 
   return (
     <>
-      {/* Main cursor dot */}
+      {/* Main cursor dot - neon green */}
       <motion.div
-        className="custom-cursor pointer-events-none fixed z-[9999] rounded-full bg-white"
+        className="pointer-events-none fixed z-[9999] rounded-full"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
-          width: isHovering ? 48 : 12,
-          height: isHovering ? 48 : 12,
+          width: isHovering ? 60 : 16,
+          height: isHovering ? 60 : 16,
           opacity: isVisible ? 1 : 0,
-          translateX: isHovering ? -24 : -6,
-          translateY: isHovering ? -24 : -6,
+          translateX: isHovering ? -30 : -8,
+          translateY: isHovering ? -30 : -8,
+          background: isHovering 
+            ? "radial-gradient(circle, rgba(0, 255, 136, 0.2) 0%, transparent 70%)"
+            : "#00ff88",
+          boxShadow: isHovering 
+            ? "0 0 40px rgba(0, 255, 136, 0.4)"
+            : "0 0 20px rgba(0, 255, 136, 0.8), 0 0 40px rgba(0, 255, 136, 0.4)",
         }}
-        transition={{ type: "spring", damping: 30, stiffness: 500 }}
+        transition={{ type: "spring", damping: 25, stiffness: 400 }}
       />
 
-      {/* Cursor ring */}
+      {/* Outer ring - purple accent */}
       <motion.div
-        className="custom-cursor pointer-events-none fixed z-[9998] rounded-full border-2 border-[#22c55e]"
+        className="pointer-events-none fixed z-[9998] rounded-full"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
-          width: isHovering ? 64 : 40,
-          height: isHovering ? 64 : 40,
-          opacity: isVisible ? 0.5 : 0,
-          translateX: isHovering ? -32 : -20,
-          translateY: isHovering ? -32 : -20,
+          width: isHovering ? 80 : 50,
+          height: isHovering ? 80 : 50,
+          opacity: isVisible ? 0.6 : 0,
+          translateX: isHovering ? -40 : -25,
+          translateY: isHovering ? -40 : -25,
+          border: "1px solid rgba(168, 85, 247, 0.5)",
+          boxShadow: "0 0 20px rgba(168, 85, 247, 0.3)",
         }}
-        transition={{ type: "spring", damping: 20, stiffness: 300 }}
+        transition={{ type: "spring", damping: 15, stiffness: 200 }}
       />
 
-      {/* Glowing trail */}
+      {/* Glowing trail - blue accent */}
       <motion.div
-        className="custom-cursor pointer-events-none fixed z-[9997] rounded-full"
+        className="pointer-events-none fixed z-[9997] rounded-full"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
-          width: 80,
-          height: 80,
-          translateX: -40,
-          translateY: -40,
-          background:
-            "radial-gradient(circle, rgba(34, 197, 94, 0.15) 0%, transparent 70%)",
+          width: 120,
+          height: 120,
+          translateX: -60,
+          translateY: -60,
+          background: "radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)",
           opacity: isVisible ? 1 : 0,
         }}
       />
