@@ -1,34 +1,36 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0806;
-  --foreground: #f5f0e6;
-  --card: rgba(20, 15, 10, 0.85);
-  --card-hover: rgba(35, 28, 18, 0.9);
-  --border: rgba(218, 165, 32, 0.15);
-  --border-hover: rgba(218, 165, 32, 0.35);
-  
-  /* Wukong Gold & Silver Theme */
-  --gold: #daa520;
-  --gold-light: #ffd700;
-  --gold-dark: #b8860b;
-  --silver: #c0c0c0;
-  --silver-light: #e8e8e8;
-  --ember: #ff6b35;
-  --ember-dark: #cc4422;
-  --fire: #ff4500;
-  --ancient-red: #8b0000;
-  --muted: rgba(245, 240, 230, 0.5);
+  --background: #09090b;
+  --foreground: #fafafa;
+  --card: #18181b;
+  --card-hover: #27272a;
+  --border: #27272a;
+  --border-hover: #3f3f46;
+
+  /* Dashboard Accent Colors */
+  --accent: #a1a1aa;
+  --accent-foreground: #fafafa;
+  --muted: #71717a;
+  --muted-foreground: #a1a1aa;
+
+  --chart-1: #22c55e;
+  /* Green for gains */
+  --chart-2: #ef4444;
+  /* Red for losses */
+  --chart-3: #3b82f6;
+  /* Blue for info */
+  --glow: rgba(255, 255, 255, 0.05);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-gold: var(--gold);
-  --color-gold-light: var(--gold-light);
-  --color-silver: var(--silver);
-  --color-ember: var(--ember);
-  --font-sans: var(--font-geist-sans);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --font-sans: "Inter", var(--font-geist-sans), system-ui, sans-serif;
 }
 
 * {
@@ -48,245 +50,22 @@ body {
   cursor: url('/dragon-cursor.png') 16 16, auto;
 }
 
-/* Fire Particle Background */
-.fire-bg {
-  position: fixed;
-  inset: 0;
-  background: url('/fire-particles.png');
-  background-size: cover;
-  opacity: 0.15;
-  pointer-events: none;
-  animation: float-particles 20s linear infinite;
-  z-index: 0;
-}
-
-@keyframes float-particles {
-  0% { background-position: 0 0; }
-  100% { background-position: 100px -200px; }
-}
-
-/* Glassmorphism - Ancient Temple Style */
-.glass {
-  background: rgba(15, 10, 8, 0.8);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(218, 165, 32, 0.1);
-}
-
-.glass-card {
-  background: linear-gradient(135deg, rgba(25, 20, 15, 0.9) 0%, rgba(15, 12, 10, 0.95) 100%);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(218, 165, 32, 0.15);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.glass-card:hover {
-  border-color: rgba(218, 165, 32, 0.4);
-  box-shadow: 0 0 40px rgba(218, 165, 32, 0.15), 0 0 80px rgba(255, 107, 53, 0.1), 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  transform: translateY(-8px) scale(1.02);
-}
-
-/* Fire Glow Effects */
-.fire-glow {
-  box-shadow: 0 0 20px rgba(255, 107, 53, 0.5), 0 0 40px rgba(218, 165, 32, 0.3), 0 0 60px rgba(255, 69, 0, 0.2);
-}
-
-.gold-glow {
-  box-shadow: 0 0 20px rgba(218, 165, 32, 0.5), 0 0 40px rgba(255, 215, 0, 0.3);
-}
-
-.silver-glow {
-  box-shadow: 0 0 20px rgba(192, 192, 192, 0.4), 0 0 40px rgba(232, 232, 232, 0.2);
-}
-
-/* Text Glows */
-.text-glow-gold {
-  text-shadow: 0 0 20px rgba(218, 165, 32, 0.6), 0 0 40px rgba(255, 215, 0, 0.4);
-}
-
-.text-glow-fire {
-  text-shadow: 0 0 20px rgba(255, 107, 53, 0.6), 0 0 40px rgba(255, 69, 0, 0.4);
-}
-
-/* Gradient Text - Gold/Fire */
-.gradient-text {
-  background: linear-gradient(135deg, #ffd700 0%, #daa520 40%, #ff6b35 70%, #ff4500 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-text-silver {
-  background: linear-gradient(135deg, #e8e8e8 0%, #c0c0c0 50%, #a8a8a8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-text-hero {
-  background: linear-gradient(180deg, #f5f0e6 0%, rgba(218, 165, 32, 0.9) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Floating Fire Animation */
-@keyframes float-fire {
-  0%, 100% { transform: translateY(0px) rotate(0deg); filter: brightness(1); }
-  25% { transform: translateY(-15px) rotate(2deg); filter: brightness(1.1); }
-  50% { transform: translateY(-8px) rotate(-1deg); filter: brightness(1.2); }
-  75% { transform: translateY(-20px) rotate(1deg); filter: brightness(1.05); }
-}
-
-@keyframes ember-float {
-  0%, 100% { opacity: 0.4; transform: translateY(0) scale(1); }
-  50% { opacity: 1; transform: translateY(-40px) scale(1.3); }
-}
-
-@keyframes fire-flicker {
-  0%, 100% { opacity: 0.8; transform: scale(1); }
-  25% { opacity: 1; transform: scale(1.05); }
-  50% { opacity: 0.9; transform: scale(0.98); }
-  75% { opacity: 1; transform: scale(1.02); }
-}
-
-.floating {
-  animation: float-fire 6s ease-in-out infinite;
-}
-
-.floating-slow {
-  animation: float-fire 8s ease-in-out infinite;
-}
-
-.ember-particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: #ff6b35;
-  border-radius: 50%;
-  animation: ember-float 3s ease-in-out infinite;
-  box-shadow: 0 0 10px #ff6b35, 0 0 20px #daa520;
-}
-
-.fire-flicker {
-  animation: fire-flicker 2s ease-in-out infinite;
-}
-
-/* Light Leak / Gradient Orbs - Fire Theme */
-.light-leak {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.3;
-  pointer-events: none;
-}
-
-.light-leak-gold {
-  background: radial-gradient(circle, rgba(218, 165, 32, 0.6) 0%, transparent 70%);
-}
-
-.light-leak-ember {
-  background: radial-gradient(circle, rgba(255, 107, 53, 0.5) 0%, transparent 70%);
-}
-
-.light-leak-fire {
-  background: radial-gradient(circle, rgba(255, 69, 0, 0.4) 0%, transparent 70%);
-}
-
-/* Button Styles - Gold Theme */
-.btn-gold {
-  background: linear-gradient(135deg, #daa520 0%, #b8860b 100%);
-  color: #0a0806;
-  font-weight: 600;
-  padding: 12px 28px;
+/* Dashboard Card */
+.dashboard-card {
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 12px;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(255, 215, 0, 0.3);
+  transition: all 0.2s ease;
 }
 
-.btn-gold:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 30px rgba(218, 165, 32, 0.6), 0 0 60px rgba(255, 215, 0, 0.3), 0 10px 40px rgba(218, 165, 32, 0.4);
+.dashboard-card:hover {
+  border-color: var(--border-hover);
+  background: var(--card-hover);
 }
 
-.btn-outline-gold {
-  background: transparent;
-  border: 1px solid rgba(218, 165, 32, 0.4);
-  color: #daa520;
-  font-weight: 500;
-  padding: 12px 28px;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-}
-
-.btn-outline-gold:hover {
-  border-color: rgba(218, 165, 32, 0.8);
-  background: rgba(218, 165, 32, 0.1);
-  box-shadow: 0 0 20px rgba(218, 165, 32, 0.3);
-}
-
-/* Toggle Switch - Ancient Style */
-.toggle-container {
-  display: inline-flex;
-  background: rgba(218, 165, 32, 0.08);
-  border: 1px solid rgba(218, 165, 32, 0.2);
-  border-radius: 50px;
-  padding: 4px;
-}
-
-.toggle-option {
-  padding: 8px 20px;
-  border-radius: 50px;
-  font-size: 14px;
-  font-weight: 500;
-  color: rgba(245, 240, 230, 0.5);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.toggle-option.active {
-  background: linear-gradient(135deg, #daa520 0%, #b8860b 100%);
-  color: #0a0806;
-}
-
-/* 3D Card Transform */
-.card-3d {
-  transform-style: preserve-3d;
-  perspective: 1000px;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.card-3d:hover {
-  transform: translateZ(20px) rotateX(2deg) rotateY(-3deg);
-}
-
-/* Carousel Navigation - Temple Style */
-.carousel-arrow {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: rgba(218, 165, 32, 0.1);
-  border: 1px solid rgba(218, 165, 32, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  color: #daa520;
-}
-
-.carousel-arrow:hover {
-  background: rgba(218, 165, 32, 0.2);
-  border-color: rgba(218, 165, 32, 0.6);
-  box-shadow: 0 0 20px rgba(218, 165, 32, 0.4);
-}
-
-/* Custom Scrollbar - Gold */
+/* Scrollbar customization */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -294,58 +73,38 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(218, 165, 32, 0.3);
+  background: #27272a;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(218, 165, 32, 0.5);
+  background: #3f3f46;
 }
 
-/* Badge Styles - Ancient */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 12px;
-  border-radius: 50px;
-  font-size: 12px;
-  font-weight: 500;
+/* Utilities */
+.text-muted {
+  color: var(--muted-foreground);
 }
 
-.badge-gold {
-  background: rgba(218, 165, 32, 0.15);
-  color: #daa520;
-  border: 1px solid rgba(218, 165, 32, 0.3);
+.bg-muted {
+  background: var(--muted);
 }
 
-.badge-ember {
-  background: rgba(255, 107, 53, 0.15);
-  color: #ff6b35;
-  border: 1px solid rgba(255, 107, 53, 0.3);
+.border-muted {
+  border-color: var(--border);
 }
 
-.badge-silver {
-  background: rgba(192, 192, 192, 0.15);
-  color: #c0c0c0;
-  border: 1px solid rgba(192, 192, 192, 0.3);
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
-/* Avatar Stack */
-.avatar-stack {
-  display: flex;
-}
-
-.avatar-stack > * {
-  margin-left: -8px;
-  border: 2px solid #0a0806;
-}
-
-.avatar-stack > *:first-child {
-  margin-left: 0;
-}
-
-/* Dragon decorative border */
-.dragon-border {
-  border-image: linear-gradient(135deg, #daa520, #ff6b35, #daa520) 1;
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
 }
